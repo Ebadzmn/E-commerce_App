@@ -44,10 +44,10 @@ class _homeSliderState extends State<homeSlider> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(image: NetworkImage(slider.photo_url), fit: BoxFit.cover)
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(slider.description, style: TextStyle(fontSize: 16.0 , color: Colors.grey),),
-                          )
+                          // child: Padding(
+                          //   padding: const EdgeInsets.all(20.0),
+                          //   child: Text(slider.description, style: TextStyle(fontSize: 16.0 , color: Colors.grey),),
+                          // )
                       );
                     },
                   );

@@ -1,6 +1,10 @@
+import 'package:ecomarce_hello/app/app_colors.dart';
 import 'package:ecomarce_hello/core/widget/progress_indecator.dart';
+import 'package:ecomarce_hello/feature/auth/ui/controllers/auth_controller.dart';
+import 'package:ecomarce_hello/feature/auth/ui/screens/signIn_screen.dart';
 import 'package:ecomarce_hello/feature/cart/data/models/cart_list_model.dart';
 import 'package:ecomarce_hello/feature/cart/ui/controllers/cart_list_controller.dart';
+import 'package:ecomarce_hello/feature/cart/ui/widget/cartListwidget.dart';
 import 'package:ecomarce_hello/feature/products/ui/widget/increment_decrement.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,12 +19,13 @@ class CartListScreen extends StatefulWidget {
 }
 
 class _CartListScreenState extends State<CartListScreen> {
+  final CartListController _cartListController = Get.find<CartListController>();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Get.find<CartListController>().getCartList();
+    _cartListController.getCartList();
   }
   @override
   Widget build(BuildContext context) {
@@ -46,58 +51,38 @@ class _CartListScreenState extends State<CartListScreen> {
               children: [
                 Expanded(child: ListView.builder(itemCount: controller.cartList.length, itemBuilder: (context,index) {
                   CartListModel cartList = controller.cartList[index];
-                  return Card(
-                    child: Row(
-                      children: [
-                        SizedBox( width: 100 , height: 100,
-                          child: Image.network('', width: 100 , height: 100 , errorBuilder: (_,__,___) {
-                            return const Icon(Icons.error_outline_rounded);
-                          },),
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                   Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(cartList.productModel.title),
-                                        Row(
-                                          children: [
-                                            Text('Color : ${cartList.color}'),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text('Size : ${cartList.size}'),
-                                          ],
-                                        ),
-
-                                      ],
-                                    ),
-                                  ),
-                                  IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('BDT ${cartList.productModel.currentPrice}'),
-                                  SizedBox( width: 80,child: FittedBox(child: IncrementDecrement(onChange: (int count){} ,)))
-
-                                ],
-                              )
-                            ],
-                          ),
-                        )
+                  return cartListWidget(cartList: cartList);
+                })),
+                // Expanded(
+                //   child: GetBuilder<CartListController>(
+                //     builder: (controller) {
+                //       if (controller.InProgress) {
+                //         return const CenterProgressIndecator();
+                //       }
+                //
+                //       if (controller.cartList == null) {
+                //         return const Center(child: CircularProgressIndicator());
+                //       }
+                //
+                //       if (controller.cartList!.isEmpty) {
+                //         return const Center(child: Text('Cart is empty.'));
+                //       }
+                //
+                //       return ListView.builder(
+                //         itemCount: controller.cartList.length,
+                //         itemBuilder: (context, index) {
+                //           final cartList = controller.cartList[index];
+                //           return cartListWidget(cartList: cartList);
+                //         },
+                //       );
+                //     },
+                //   ),
+                // ),
 
 
-                      ],
-                    ),
-                  );
-                }))
+                Container(
+                  child: _buildPriceCard(),
+                )
               ],
             );
           }
@@ -105,4 +90,33 @@ class _CartListScreenState extends State<CartListScreen> {
       ),
     );
   }
+  Widget _buildPriceCard( ) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+          color: AppColors.themeColor.withOpacity(0.2),
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(16),
+            topLeft: Radius.circular(16),
+          )
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Price'),
+              Text('BDT ${_cartListController.totalPrice}' , style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,color: AppColors.themeColor
+              ),),
+            ],
+          ),
+          SizedBox( width : 140 , child: ElevatedButton(onPressed: () {}, child: const Text('CheckOut')),)
+        ],
+      ),
+    );
+  }
 }
+

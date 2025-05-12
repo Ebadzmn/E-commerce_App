@@ -2,16 +2,23 @@ import 'package:ecomarce_hello/app/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class IncrementDecrement extends StatefulWidget {
-  const IncrementDecrement({super.key, required this.onChange});
+  const IncrementDecrement({super.key, required this.onChange, required this.initialValue});
 
   final Function (int) onChange;
+  final int initialValue;
 
   @override
   State<IncrementDecrement> createState() => _IncrementDecrementState();
 }
 
+
 class _IncrementDecrementState extends State<IncrementDecrement> {
   int Count = 1;
+  @override
+  void initState() {
+    super.initState();
+    Count = widget.initialValue; // initialize from parent
+  }
   @override
   Widget build(BuildContext context) {
     return Wrap(

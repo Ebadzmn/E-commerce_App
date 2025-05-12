@@ -4,9 +4,7 @@ import 'package:ecomarce_hello/feature/products/ui/controlers/product_list_contr
 import 'package:ecomarce_hello/feature/products/ui/controlers/special_productList_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../controlers/popular_product_controller.dart';
-
 
 class PopularProductsList extends StatefulWidget {
   const PopularProductsList({super.key});

@@ -26,7 +26,7 @@ class _MainButtonNavbarState extends State<MainButtonNavbar> {
     const Home(),
     const CategoriesListScreen(),
     const CartListScreen(),
-    const WishListScreen(),
+    const WishProductsList(),
   ];
 
   // @override

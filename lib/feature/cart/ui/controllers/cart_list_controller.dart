@@ -5,9 +5,15 @@ import 'package:get/get.dart';
 
 class CartListController extends GetxController {
   bool _InProgress = false;
+  bool _removeCartInProgress = false;
+  String? _removeCarterrorMessage;
 
+  bool get removeCartInprogress => _removeCartInProgress;
+  String? get removeCarterrorMessage => _removeCarterrorMessage;
   String? _errorMessage;
+  String? _UpdateerrorMessage;
   String? get errorMessage => _errorMessage;
+  String? get UpdateerrorMessage => _UpdateerrorMessage;
   bool get InProgress => _InProgress;
    List<CartListModel> _cartList = [];
   List<CartListModel> get cartList => _cartList;
@@ -32,5 +38,70 @@ class CartListController extends GetxController {
     _InProgress = false;
     update();
     return isSuccess;
+  }
+
+
+  // void updateProduct (String cartId , int quantity) {
+  //   for (CartListModel cartList in _cartList) {
+  //     if (cartList.id == cartId) {
+  //       cartList.quantity = quantity;
+  //       break;
+  //     }
+  //   }
+  //   update();
+  // }
+
+  Future <bool> UpdateCartProduct (String cartId, int quantity) async {
+    bool isSuccess = false;
+
+    final NetworkResponse response = await Get.find<NetworkCaller>().patchRequest(url: AppUrls.updateCartUrl(cartId),
+    body: {
+      'quantity' : quantity
+    }
+    );
+
+    if (response.isSuccess) {
+      for (CartListModel cartList in _cartList) {
+        if (cartList.id == cartId) {
+          cartList.quantity = quantity;
+          break;
+        }
+      }
+    } else {
+      _UpdateerrorMessage = response.errorMassage;
+    }
+    update();
+    return isSuccess;
+  }
+
+
+  Future <bool> removeCartProduct (String cartId) async {
+    bool isSuccess = false;
+    _removeCartInProgress = true;
+    update();
+    
+    final NetworkResponse response = await Get.find <NetworkCaller>().deleteRequest(url: AppUrls.deleteCartUrl(cartId));
+    
+    if (response.isSuccess) {
+      _cartList.removeWhere((e) => e.id == cartId);
+      isSuccess = true;
+    } else {
+      _removeCarterrorMessage = response.errorMassage;
+    }
+    _removeCartInProgress = false;
+    update();
+    return isSuccess;
+
+  }
+
+
+
+
+  int get totalPrice {
+    int total = 0;
+    for (CartListModel cartList in _cartList) {
+      total += (cartList.productModel.currentPrice * cartList.quantity);
+    }
+    return total;
   }
 }

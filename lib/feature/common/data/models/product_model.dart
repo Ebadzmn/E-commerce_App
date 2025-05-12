@@ -11,9 +11,9 @@ class ProductModel {
   final List<String> photos;
   final List<String> sizes;
   final List<String> colors;
-  // final int availableQuantity;
+  final int quantity;
 
-  ProductModel({required this.id, required this.title,required this.description, required this.regularPrice, required this.currentPrice, required this.photos, required this.sizes, required this.colors, });
+  ProductModel({required this.id, required this.title,required this.description, required this.regularPrice, required this.currentPrice,required this.quantity ,required this.photos, required this.sizes, required this.colors, });
 
 
   factory ProductModel.fromJson (Map<String , dynamic> jsonData) {
@@ -24,6 +24,7 @@ class ProductModel {
     return ProductModel (
       id: jsonData['_id'],
       title: jsonData['title'],
+      quantity: jsonData['quantity'],
       description: jsonData['description'] ?? '',
       // brand: BrandModel.fromJson(jsonData['brand']),
       regularPrice: jsonData['regular_price'] ?? 0,

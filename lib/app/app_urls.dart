@@ -7,5 +7,8 @@ class AppUrls {
   static const String categoryListUrl = '$_baseUrl/categories';
   static const String productListUrl = '$_baseUrl/products';
   static const String addToCartUrl = '$_baseUrl/cart';
+  static const String addToWishtUrl = '$_baseUrl/wishlist';
+  static  String deleteCartUrl(String id) => '$_baseUrl/cart/$id';
+  static  String updateCartUrl(String id) => '$_baseUrl/cart/$id';
   static String productDetailsUrl(String productId) => '$_baseUrl/products/id/$productId';
 }

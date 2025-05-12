@@ -4,6 +4,7 @@ import 'package:ecomarce_hello/core/widget/snackBar_msg.dart';
 import 'package:ecomarce_hello/feature/auth/ui/controllers/auth_controller.dart';
 import 'package:ecomarce_hello/feature/auth/ui/screens/signIn_screen.dart';
 import 'package:ecomarce_hello/feature/common/controller/addTo_cart_controller.dart';
+import 'package:ecomarce_hello/feature/common/controller/add_wishList_controller.dart';
 import 'package:ecomarce_hello/feature/products/ui/controlers/product_details_controller.dart';
 import 'package:ecomarce_hello/feature/products/ui/widget/color_picker.dart';
 import 'package:ecomarce_hello/feature/products/ui/widget/increment_decrement.dart';
@@ -28,6 +29,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
 
   final ProductDetailsController _productDetailsController = ProductDetailsController();
   final AddToCartController _addToCartController = AddToCartController();
+  final AddToWishController _addToWishController = AddToWishController();
 
   String? _selectedColor;
   String? _selectedSize;
@@ -89,14 +91,21 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                         ),
                                         TextButton(onPressed: () {}, child: const Text('Reviews')),
                                         Card(
-                                          color: AppColors.themeColor,
+                                          // color: AppColors.themeColor,
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(3)
                                           ),
-                                          child: const Padding(
-                                            padding: EdgeInsets.all(3.0),
-                                            child: Icon(Icons.favorite_border,size: 18, color: Colors.white,),
-                                          ),
+                                          child: TextButton(onPressed: () async {
+                                            if (Get.find<AuthController>().isValidUser() == false) {
+                                              Get.to( ()=> SignInScreen());
+                                            }
+                                            final bool isSuccess = await _addToWishController.addToWish(_productDetailsController.product.id);
+                                            if (isSuccess) {
+                                              showSnackBarMsg(context, 'Success to add wishlist');
+                                            } else {
+                                              showSnackBarMsg(context, _addToWishController.errorMessage!,true);
+                                            }
+                                          }, child: Text('Add to Wish')),
                                         )
 
                                       ],
@@ -106,7 +115,7 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                 )),
                                 IncrementDecrement(onChange: (int quantity ) {
                                   _selectedQuantity = quantity;
-                                },),
+                                }, initialValue: controller.product.quantity,),
                               ],
                             ),
                             ColorPicker(colors: controller.product.colors, onChange: (selectedColor) {

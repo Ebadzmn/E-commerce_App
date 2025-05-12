@@ -18,6 +18,7 @@ class _HelloShopState extends State<HelloShop> {
   Widget build(BuildContext context) {
     return  GetMaterialApp(
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRoutes.onGenerateRoute,
       theme: ThemeData(
         colorSchemeSeed: AppColors.themeColor,
