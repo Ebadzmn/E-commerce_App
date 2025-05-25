@@ -22,10 +22,10 @@ class ProductModel {
     List<dynamic> colorList = jsonData['colors'] ?? [];
 
     return ProductModel (
-      id: jsonData['_id'],
-      title: jsonData['title'],
-      quantity: jsonData['quantity'],
-      description: jsonData['description'] ?? '',
+      id: jsonData['_id'] ?? '0',
+      title: jsonData['title'] ?? 'no title',
+      quantity: jsonData['quantity'] ?? 0,
+      description: jsonData['description'] ?? 'no description',
       // brand: BrandModel.fromJson(jsonData['brand']),
       regularPrice: jsonData['regular_price'] ?? 0,
       currentPrice: jsonData['current_price'] ?? 0,

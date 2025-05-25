@@ -10,6 +10,8 @@ import 'package:ecomarce_hello/feature/products/ui/screens/popular_productList_s
 import 'package:ecomarce_hello/feature/products/ui/screens/products_details_screen.dart';
 import 'package:ecomarce_hello/feature/products/ui/screens/products_list.dart';
 import 'package:ecomarce_hello/feature/products/ui/screens/special_ProductList_screen.dart';
+import 'package:ecomarce_hello/feature/reviews/ui/screens/add_review_screen.dart';
+import 'package:ecomarce_hello/feature/reviews/ui/screens/reviews_list.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -52,8 +54,15 @@ class AppRoutes {
     else if (settings.name == SpecialProductsList.name) {
       route = const SpecialProductsList();
     }
+    else if (settings.name == ReviewsList.name) {
+      String productId = settings.arguments as String;
+      route = ReviewsList(productId: productId);
+    }
     else if (settings.name == PopularProductsList.name) {
       route = const PopularProductsList();
+    }
+    else if (settings.name == AddReviewScreen.name) {
+      route = const AddReviewScreen(productId: '',);
     }
     return MaterialPageRoute(builder: (context) {
       return route;

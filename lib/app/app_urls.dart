@@ -11,4 +11,10 @@ class AppUrls {
   static  String deleteCartUrl(String id) => '$_baseUrl/cart/$id';
   static  String updateCartUrl(String id) => '$_baseUrl/cart/$id';
   static String productDetailsUrl(String productId) => '$_baseUrl/products/id/$productId';
+  static String productReviewUrl = '$_baseUrl/reviews';
+  static String addProductReviewUrl = '$_baseUrl/review';
+  // static String productReviewUrl(String productId) {
+  //   productId = productId.replaceAll('?', ''); // remove accidental '?'
+  //   return '$_baseUrl/reviews?product=$productId';
+  // }
 }

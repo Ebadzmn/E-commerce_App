@@ -9,6 +9,8 @@ import 'package:ecomarce_hello/feature/common/controller/main_bottom_nav_control
 import 'package:ecomarce_hello/feature/common/controller/slider_controller.dart';
 import 'package:ecomarce_hello/feature/products/ui/controlers/popular_product_controller.dart';
 import 'package:ecomarce_hello/feature/products/ui/controlers/special_productList_controller.dart';
+import 'package:ecomarce_hello/feature/reviews/ui/controllers/add_review_controller.dart';
+import 'package:ecomarce_hello/feature/reviews/ui/controllers/reviews_list_controllers.dart';
 import 'package:ecomarce_hello/feature/wishList/ui/controllers/wishList_controller.dart';
 import 'package:get/get.dart';
 
@@ -27,6 +29,8 @@ class ControllerBinder extends Bindings {
     Get.put(WishListController());
     Get.put(VerifyOtpController());
     Get.put(CartListController());
+    Get.put(ReviewsListController());
+    Get.put(AddReviewController());
     // Get.put(()=> VerifyOtpController());
   }
 }

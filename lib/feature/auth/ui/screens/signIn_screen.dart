@@ -129,9 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
       } else {
         showSnackBarMsg(context, _signInController.errorMessage!, true);
       }
-
     }
-
   }
   @override
   void dispose() {

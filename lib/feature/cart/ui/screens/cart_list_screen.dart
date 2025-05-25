@@ -53,32 +53,6 @@ class _CartListScreenState extends State<CartListScreen> {
                   CartListModel cartList = controller.cartList[index];
                   return cartListWidget(cartList: cartList);
                 })),
-                // Expanded(
-                //   child: GetBuilder<CartListController>(
-                //     builder: (controller) {
-                //       if (controller.InProgress) {
-                //         return const CenterProgressIndecator();
-                //       }
-                //
-                //       if (controller.cartList == null) {
-                //         return const Center(child: CircularProgressIndicator());
-                //       }
-                //
-                //       if (controller.cartList!.isEmpty) {
-                //         return const Center(child: Text('Cart is empty.'));
-                //       }
-                //
-                //       return ListView.builder(
-                //         itemCount: controller.cartList.length,
-                //         itemBuilder: (context, index) {
-                //           final cartList = controller.cartList[index];
-                //           return cartListWidget(cartList: cartList);
-                //         },
-                //       );
-                //     },
-                //   ),
-                // ),
-
 
                 Container(
                   child: _buildPriceCard(),

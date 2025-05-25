@@ -10,6 +10,7 @@ import 'package:ecomarce_hello/feature/products/ui/widget/color_picker.dart';
 import 'package:ecomarce_hello/feature/products/ui/widget/increment_decrement.dart';
 import 'package:ecomarce_hello/feature/products/ui/widget/productSlider.dart';
 import 'package:ecomarce_hello/feature/products/ui/widget/size_picker.dart';
+import 'package:ecomarce_hello/feature/reviews/ui/screens/reviews_list.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -89,7 +90,9 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
                                             Text('4.3'),
                                           ],
                                         ),
-                                        TextButton(onPressed: () {}, child: const Text('Reviews')),
+                                        TextButton(onPressed: () {
+                                          Navigator.pushNamed(context, ReviewsList.name,arguments: _productDetailsController.product.id);
+                                        }, child: const Text('Reviews')),
                                         Card(
                                           // color: AppColors.themeColor,
                                           shape: RoundedRectangleBorder(
@@ -169,11 +172,11 @@ class _ProductsDetailsScreenState extends State<ProductsDetailsScreen> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Price'),
-                  Text('%2990' , style: TextStyle(
+                  Text('${_productDetailsController.product.currentPrice} BDT' , style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17,color: AppColors.themeColor
                   ),),

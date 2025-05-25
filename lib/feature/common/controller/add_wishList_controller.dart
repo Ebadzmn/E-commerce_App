@@ -17,7 +17,6 @@ class AddToWishController extends GetxController {
 
     final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(url: AppUrls.addToWishtUrl, body: {
       'product' : productId,
-
     });
     if (response.isSuccess) {
       isSuccess = true;
